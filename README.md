@@ -2,5 +2,5 @@
 Kaggle Competition
 
 Models:
-(1) Logistic Regression \newline
+(1) Logistic Regression 
 (2)
