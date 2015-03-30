@@ -2,5 +2,9 @@
 Kaggle Competition
 
 Models:
-(1) Logistic Regression 
-(2)
+
+(1) Naive Bayes
+
+(2) Logistic Regression 
+
+(3) 
