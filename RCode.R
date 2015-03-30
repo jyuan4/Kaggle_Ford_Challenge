@@ -17,63 +17,6 @@ training <- newdata[train_ind, ]
 testing <- newdata[-train_ind, ]
 
 #---------------------------------------------------------#
-#LR
-#---------------------------------------------------------#
-training <- data.frame(training)
-lr.fit <- glm(IsAlert~., data=training)
-testing <- data.frame(testing)
-lr.pred <- predict(lr.fit, testing[,2:ncol(testing)], type="response")
-
-library(pROC)
-roc.curve <- roc(lr.pred, factor(testing$IsAlert))
-plot(roc.curve, main = "Logistic Regression ROC Curve", col = "red")
-auc.score<-auc(testing$IsAlert, lr.pred)
-
-lr.pred[lr.pred>=0.5] <- 1
-lr.pred[lr.pred<0.5] <- 0
-lr.table <- table(lr.pred, testing$IsAlert)
-1-sum(diag(lr.table))/sum(lr.table) #misclassification rate
-
-#---------------------------------------------------------#
-#Tree - rpart
-#---------------------------------------------------------#
-library(rpart)
-set.seed(1)
-rpart.fit <- rpart(IsAlert~., data=training, control=rpart.control(minsplit = 10))
-plot(rpart.fit, uniform=T)
-text(rpart.fit, use.n = TRUE)
-
-#---------------------------------------------------------#
-#RF
-#---------------------------------------------------------#
-library(randomForest)
-set.seed(100)
-#500 ntree
-RF <- randomForest(training[,-c(1,2,7,12)], factor(training$IsAlert),
-                   sampsize=10000, do.trace=TRUE, importance=TRUE, ntree=10, forest=TRUE)
-rf.pred <- data.frame(IsAlert.pred=predict(RF,testing[,-c(1,2,7,12)],type="prob")[,2])
-
-roc.curve <- roc(factor(rf.pred[,1], factor(testing$IsAlert))
-plot(roc.curve, main = "Logistic Regression ROC Curve", col = "red")
-auc.score<-auc(testing$IsAlert, rf.pred[,1])
-
-rf.pred[rf.pred>=0.5] <- 1
-rf.pred[rf.pred<0.5] <- 0
-rf.table <- table(rf.pred[,1], testing$IsAlert)
-1-sum(diag(rf.table))/sum(rf.table) #misclassification rate
-
-#---------------------------------------------------------#
-#RF - Bin Li Notes
-#---------------------------------------------------------#
-library(randomForest)
-library(MASS)
-set.seed(1)
-rf.fit <- randomForest(IsAlert~., data=training, mtry=2, importance=TRUE)
-
-
-#---------------------------------------------------------#
-#---------------------------------------------------------#
-#---------------------------------------------------------#
 #L1 Logistic Regression - glmnet-super slow
 #---------------------------------------------------------#
 library(glmnet)
