@@ -1,4 +1,4 @@
-# Amazon_Challenge_Kaggle
+# Stay Alert! The Ford Challenge
 Kaggle Competition
 
 EXST 7152 - Midterm Project - Jumao Yuan
