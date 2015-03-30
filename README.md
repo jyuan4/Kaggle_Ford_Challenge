@@ -1,6 +1,9 @@
 # Stay Alert! The Ford Challenge
 Kaggle Competition
 
+https://www.kaggle.com/c/stayalert
+
+
 EXST 7152 - Midterm Project - Jumao Yuan
 
 ## Models:
